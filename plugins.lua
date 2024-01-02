@@ -1,4 +1,4 @@
-local overrides = require("custom.configs.overrides")
+local overrides = require "custom.configs.overrides"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -25,7 +25,7 @@ local plugins = {
   -- override plugin configs
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason
+    opts = overrides.mason,
   },
 
   {
@@ -54,12 +54,18 @@ local plugins = {
     },
     config = function()
       require("dapui").setup()
+      -- local dap, dapui = require("dap"), require("dapui")
+      -- dap.listeners.after.event_initialized["dapui_config"] = function()
+      -- 	dapui.open({ reset = true })
+      -- end
+      -- dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      -- dap.listeners.before.event_exited["dapui_config"] = dapui.close
     end,
   },
   {
     "mfussenegger/nvim-dap",
     config = function()
-      local dap = require("dap")
+      local dap = require "dap"
 
       dap.configurations.typescript = {
         {
@@ -78,6 +84,14 @@ local plugins = {
         command = "node-debug2-adapter",
         args = {},
       }
+
+      require("dapui").setup()
+      local dapui = require "dapui"
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open { reset = true }
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+      dap.listeners.before.event_exited["dapui_config"] = dapui.close
     end,
   },
 

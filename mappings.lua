@@ -25,6 +25,30 @@ M.debugger_custom = {
       end,
       "Toggle debugger breakpoint"
     },
+    ["<leader>dc"] = {
+      function()
+        require("dap").continue()
+      end,
+      "Continue"
+    },
+    ["<leader>dq"] = {
+      function()
+        require("dap").step_out()
+      end,
+      "Step Out"
+    },
+    ["<leader>dw"] = {
+      function()
+        require("dap").step_into()
+      end,
+      "Step Into"
+    },
+    ["<leader>de"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "Step Over"
+    },
   }
 }
 
